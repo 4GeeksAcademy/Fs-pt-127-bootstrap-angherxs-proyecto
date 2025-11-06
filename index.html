@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Instagram con Bootstrap</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .navbar-brand i {
+      color: #000;
+    }
+
+    /*  Hace que todas las imágenes tengan el mismo tamaño cuadrado */
+    .img-container {
+      width: 100%;
+      aspect-ratio: 1 / 1; /* cuadrado */
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    .img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* recorta centrado sin deformar */
+      object-position: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!--  NAVBAR -->
+  <nav class="navbar navbar-expand-lg bg-white shadow-sm p-3 mb-4">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">
+        <i class="fa-brands fa-instagram"></i> Instagram
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
+        <div class="d-flex gap-2 mt-3 mt-lg-0">
+          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newPostModal">
+            <i class="fa-solid fa-plus"></i> Create a new post
+          </button>
+          <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+              <i class="fa-solid fa-gear"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BOTONES DE VISTA -->
+  <div class="container text-center mb-3">
+    <div class="btn-group" role="group">
+      <button id="gridViewBtn" class="btn btn-outline-primary active">
+        <i class="fa-solid fa-table-cells"></i> Grid
+      </button>
+      <button id="feedViewBtn" class="btn btn-outline-primary">
+        <i class="fa-solid fa-bars"></i> Feed
+      </button>
+    </div>
+  </div>
+
+  <!--  CONTENEDOR DE IMÁGENES -->
+  <div class="container">
+    <div id="imageContainer" class="row g-3">
+      <div class="col-md-4 col-sm-6"><div class="img-container"><img src="https://i.pinimg.com/736x/87/73/b2/8773b27706898e1c8fed30bee8310e36.jpg" alt="1"></div></div>
+      <div class="col-md-4 col-sm-6"><div class="img-container"><img src="https://i.pinimg.com/736x/9d/4a/fd/9d4afd335caba2018883177065b2daf2.jpg" alt="2"></div></div>
+      <div class="col-md-4 col-sm-6"><div class="img-container"><img src="https://i.pinimg.com/736x/c2/a4/f1/c2a4f1e57d3c1ba6c07c7b93c15e23d7.jpg" alt="3"></div></div>
+      <div class="col-md-4 col-sm-6"><div class="img-container"><img src="https://i.pinimg.com/1200x/c5/48/47/c54847f75492880671da002320406cbb.jpg" alt="4"></div></div>
+      <div class="col-md-4 col-sm-6"><div class="img-container"><img src="https://i.pinimg.com/736x/cd/fd/63/cdfd6301e6e6c341b7120880280ae016.jpg" alt="5"></div></div>
+      <div class="col-md-4 col-sm-6"><div class="img-container"><img src="https://i.pinimg.com/736x/b1/3d/4b/b13d4b63010f63a179ddfef41554abfc.jpg" alt="6"></div></div>
+      <div class="col-md-4 col-sm-6"><div class="img-container"><img src="https://i.pinimg.com/736x/ec/cc/5b/eccc5ba6c810e503bece995dc379bd73.jpg" alt="7"></div></div>
+      <div class="col-md-4 col-sm-6"><div class="img-container"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Flag_of_Japan.svg" alt="8"></div></div>
+      <div class="col-md-4 col-sm-6"><div class="img-container"><img src="https://i.pinimg.com/736x/76/36/93/763693e377ca06b0ca368dec5c822bd5.jpg" alt="9"></div></div>
+    </div>
+  </div>
+
+  <!-- 🔹 MODAL NUEVO POST -->
+  <div class="modal fade" id="newPostModal" tabindex="-1" aria-labelledby="newPostLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="newPostLabel">Create a new post</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <label for="caption" class="form-label">Caption:</label>
+          <textarea id="caption" class="form-control" placeholder="Add the caption of your post here"></textarea>
+          <div class="mt-3 d-flex justify-content-start gap-2">
+            <button class="btn btn-light"><i class="fa-solid fa-camera"></i></button>
+            <button class="btn btn-light"><i class="fa-solid fa-location-dot"></i></button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button class="btn btn-success">Publish</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!--  Script para cambiar vistas -->
+  <script>
+    const gridBtn = document.getElementById('gridViewBtn');
+    const feedBtn = document.getElementById('feedViewBtn');
+    const container = document.getElementById('imageContainer');
+
+    gridBtn.addEventListener('click', () => {
+      gridBtn.classList.add('active');
+      feedBtn.classList.remove('active');
+      container.classList.add('row', 'g-3');
+      [...container.children].forEach(col => col.className = 'col-md-4 col-sm-6');
+    });
+
+    feedBtn.addEventListener('click', () => {
+      feedBtn.classList.add('active');
+      gridBtn.classList.remove('active');
+      container.classList.remove('row', 'g-3');
+      [...container.children].forEach(col => col.className = 'mb-4');
+    });
+  </script>
+</body>
+</html>
