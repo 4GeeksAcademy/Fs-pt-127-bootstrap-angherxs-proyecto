@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mini Instagram con Bootstrap</title>
+  <title>Mini Instagram con Feed pequeño</title>
 
-  <!-- Bootstrap CSS -->
+  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -15,28 +15,47 @@
     body {
       background-color: #f8f9fa;
     }
-    .navbar-brand i {
-      color: #000;
-    }
 
-    /*  Hace que todas las imágenes tengan el mismo tamaño cuadrado */
+    /*  contenedor de imagen */
     .img-container {
       width: 100%;
-      aspect-ratio: 1 / 1; /* cuadrado */
+      aspect-ratio: 1 / 1;
       overflow: hidden;
-      border-radius: 8px;
+      border-radius: 10px;
+      transition: all 0.4s ease;
     }
+
+    /*  imagen dentro del contenedor */
     .img-container img {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* recorta centrado sin deformar */
-      object-position: center;
+      object-fit: cover;
+      transition: all 0.3s ease;
+    }
+
+    /*  modo FEED (imagen rectangular más pequeña) */
+    .feed .img-container {
+      aspect-ratio: 4 / 3;
+      width: 60%;
+      margin: 0 auto;
+    }
+
+    /*  animación al pasar */
+    .img-container img:hover {
+      transform: scale(1.05);
+    }
+
+    /* texto de feed */
+    .feed .card-body {
+      width: 60%;
+      margin: 0.5rem auto 2rem auto;
     }
   </style>
 </head>
+
 <body>
 
-  <!--  NAVBAR -->
+  <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg bg-white shadow-sm p-3 mb-4">
     <div class="container">
       <a class="navbar-brand fw-bold" href="#">
@@ -59,7 +78,9 @@
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="#">Profile</a></li>
               <li><a class="dropdown-item" href="#">Settings</a></li>
-              <li><hr class="dropdown-divider"></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
               <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
             </ul>
           </div>
@@ -68,9 +89,9 @@
     </div>
   </nav>
 
-  <!-- BOTONES DE VISTA -->
+  <!--  BOTONES GRID / FEED -->
   <div class="container text-center mb-3">
-    <div class="btn-group" role="group">
+    <div class="btn-group">
       <button id="gridViewBtn" class="btn btn-outline-primary active">
         <i class="fa-solid fa-table-cells"></i> Grid
       </button>
@@ -83,33 +104,166 @@
   <!--  CONTENEDOR DE IMÁGENES -->
   <div class="container">
     <div id="imageContainer" class="row g-3">
-      <div class="col-md-4 col-sm-6"><div class="img-container"><img src="https://i.pinimg.com/736x/87/73/b2/8773b27706898e1c8fed30bee8310e36.jpg" alt="1"></div></div>
-      <div class="col-md-4 col-sm-6"><div class="img-container"><img src="https://i.pinimg.com/736x/9d/4a/fd/9d4afd335caba2018883177065b2daf2.jpg" alt="2"></div></div>
-      <div class="col-md-4 col-sm-6"><div class="img-container"><img src="https://i.pinimg.com/736x/c2/a4/f1/c2a4f1e57d3c1ba6c07c7b93c15e23d7.jpg" alt="3"></div></div>
-      <div class="col-md-4 col-sm-6"><div class="img-container"><img src="https://i.pinimg.com/1200x/c5/48/47/c54847f75492880671da002320406cbb.jpg" alt="4"></div></div>
-      <div class="col-md-4 col-sm-6"><div class="img-container"><img src="https://i.pinimg.com/736x/cd/fd/63/cdfd6301e6e6c341b7120880280ae016.jpg" alt="5"></div></div>
-      <div class="col-md-4 col-sm-6"><div class="img-container"><img src="https://i.pinimg.com/736x/b1/3d/4b/b13d4b63010f63a179ddfef41554abfc.jpg" alt="6"></div></div>
-      <div class="col-md-4 col-sm-6"><div class="img-container"><img src="https://i.pinimg.com/736x/ec/cc/5b/eccc5ba6c810e503bece995dc379bd73.jpg" alt="7"></div></div>
-      <div class="col-md-4 col-sm-6"><div class="img-container"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Flag_of_Japan.svg" alt="8"></div></div>
-      <div class="col-md-4 col-sm-6"><div class="img-container"><img src="https://i.pinimg.com/736x/76/36/93/763693e377ca06b0ca368dec5c822bd5.jpg" alt="9"></div></div>
+
+      <!-- Post 1 -->
+      <div class="col-md-4 col-sm-6 post">
+        <div class="card border-0">
+          <div class="img-container">
+            <img src="https://i.pinimg.com/736x/87/73/b2/8773b27706898e1c8fed30bee8310e36.jpg" alt="">
+          </div>
+          <div class="card-body d-none feed-content">
+            <h6 class="fw-bold mb-1">obi-wan</h6>
+            <p class="mb-2">La baby fuerza esta contigo.</p>
+            <div class="d-flex gap-3">
+              <i class="fa-regular fa-heart"></i>
+              <i class="fa-regular fa-comment"></i>
+              <i class="fa-regular fa-paper-plane"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 post">
+        <div class="card border-0">
+          <div class="img-container">
+            <img src="https://i.pinimg.com/736x/c2/a4/f1/c2a4f1e57d3c1ba6c07c7b93c15e23d7.jpg" alt="">
+          </div>
+          <div class="card-body d-none feed-content">
+            <h6 class="fw-bold mb-1">Mr gato</h6>
+            <p class="mb-2">Booooocat HAHAHA malchiste.</p>
+            <div class="d-flex gap-3">
+              <i class="fa-regular fa-heart"></i>
+              <i class="fa-regular fa-comment"></i>
+              <i class="fa-regular fa-paper-plane"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 post">
+        <div class="card border-0">
+          <div class="img-container">
+            <img src="https://i.pinimg.com/736x/9d/4a/fd/9d4afd335caba2018883177065b2daf2.jpg" alt="">
+          </div>
+          <div class="card-body d-none feed-content">
+            <h6 class="fw-bold mb-1">Naruto uzumaki</h6>
+            <p class="mb-2">Mi camino ninja es salvar a los animales.</p>
+            <div class="d-flex gap-3">
+              <i class="fa-regular fa-heart"></i>
+              <i class="fa-regular fa-comment"></i>
+              <i class="fa-regular fa-paper-plane"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 post">
+        <div class="card border-0">
+          <div class="img-container">
+            <img src="https://i.pinimg.com/1200x/c5/48/47/c54847f75492880671da002320406cbb.jpg" alt="">
+          </div>
+          <div class="card-body d-none feed-content">
+            <h6 class="fw-bold mb-1">Batman</h6>
+            <p class="mb-2">Me esperan para hacer una batirumba.</p>
+            <div class="d-flex gap-3">
+              <i class="fa-regular fa-heart"></i>
+              <i class="fa-regular fa-comment"></i>
+              <i class="fa-regular fa-paper-plane"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 post">
+        <div class="card border-0">
+          <div class="img-container">
+            <img src="https://i.pinimg.com/736x/cd/fd/63/cdfd6301e6e6c341b7120880280ae016.jpg" alt="">
+          </div>
+          <div class="card-body d-none feed-content">
+            <h6 class="fw-bold mb-1">geeks</h6>
+            <p class="mb-2">Practicamente imposible de coseguir.</p>
+            <div class="d-flex gap-3">
+              <i class="fa-regular fa-heart"></i>
+              <i class="fa-regular fa-comment"></i>
+              <i class="fa-regular fa-paper-plane"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 post">
+        <div class="card border-0">
+          <div class="img-container">
+            <img src="https://i.pinimg.com/736x/b1/3d/4b/b13d4b63010f63a179ddfef41554abfc.jpg" alt="">
+          </div>
+          <div class="card-body d-none feed-content">
+            <h6 class="fw-bold mb-1">Henry</h6>
+            <p class="mb-2">La magia de clasico nunca muere.</p>
+            <div class="d-flex gap-3">
+              <i class="fa-regular fa-heart"></i>
+              <i class="fa-regular fa-comment"></i>
+              <i class="fa-regular fa-paper-plane"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 post">
+        <div class="card border-0">
+          <div class="img-container">
+            <img src="https://i.pinimg.com/736x/ec/cc/5b/eccc5ba6c810e503bece995dc379bd73.jpg" alt="">
+          </div>
+          <div class="card-body d-none feed-content">
+            <h6 class="fw-bold mb-1">Domo-sama</h6>
+            <p class="mb-2">どの季節でも訪れるのに美しい場所.</p>
+            <div class="d-flex gap-3">
+              <i class="fa-regular fa-heart"></i>
+              <i class="fa-regular fa-comment"></i>
+              <i class="fa-regular fa-paper-plane"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 post">
+        <div class="card border-0">
+          <div class="img-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Flag_of_Japan.svg" alt="">
+          </div>
+          <div class="card-body d-none feed-content">
+            <h6 class="fw-bold mb-1">JAPON</h6>
+            <p class="mb-2">Mi gente estamo en japon gente con cojones.</p>
+            <div class="d-flex gap-3">
+              <i class="fa-regular fa-heart"></i>
+              <i class="fa-regular fa-comment"></i>
+              <i class="fa-regular fa-paper-plane"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 post">
+        <div class="card border-0">
+          <div class="img-container">
+            <img src="https://i.pinimg.com/736x/76/36/93/763693e377ca06b0ca368dec5c822bd5.jpg" alt="">
+          </div>
+          <div class="card-body d-none feed-content">
+            <h6 class="fw-bold mb-1">Hishiraku</h6>
+            <p class="mb-2">Jamas probaras algo tan bueno en la vida.</p>
+            <div class="d-flex gap-3">
+              <i class="fa-regular fa-heart"></i>
+              <i class="fa-regular fa-comment"></i>
+              <i class="fa-regular fa-paper-plane"></i>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- 🔹 MODAL NUEVO POST -->
+  <!--  MODAL NUEVO POST -->
   <div class="modal fade" id="newPostModal" tabindex="-1" aria-labelledby="newPostLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="newPostLabel">Create a new post</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
-          <label for="caption" class="form-label">Caption:</label>
-          <textarea id="caption" class="form-control" placeholder="Add the caption of your post here"></textarea>
-          <div class="mt-3 d-flex justify-content-start gap-2">
-            <button class="btn btn-light"><i class="fa-solid fa-camera"></i></button>
-            <button class="btn btn-light"><i class="fa-solid fa-location-dot"></i></button>
-          </div>
+          <label class="form-label">Caption:</label>
+          <textarea class="form-control" placeholder="Add your caption here"></textarea>
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -122,25 +276,37 @@
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!--  Script para cambiar vistas -->
+  <!--  JS PARA CAMBIAR VISTA -->
   <script>
     const gridBtn = document.getElementById('gridViewBtn');
     const feedBtn = document.getElementById('feedViewBtn');
     const container = document.getElementById('imageContainer');
 
+    // GRID VIEW
     gridBtn.addEventListener('click', () => {
       gridBtn.classList.add('active');
       feedBtn.classList.remove('active');
+      container.classList.remove('feed');
       container.classList.add('row', 'g-3');
-      [...container.children].forEach(col => col.className = 'col-md-4 col-sm-6');
+      [...container.children].forEach(col => {
+        col.className = 'col-md-4 col-sm-6 post';
+        col.querySelector('.feed-content').classList.add('d-none');
+      });
     });
 
+    // FEED VIEW
     feedBtn.addEventListener('click', () => {
       feedBtn.classList.add('active');
       gridBtn.classList.remove('active');
+      container.classList.add('feed');
       container.classList.remove('row', 'g-3');
-      [...container.children].forEach(col => col.className = 'mb-4');
+      [...container.children].forEach(col => {
+        col.className = 'post mb-4';
+        col.querySelector('.feed-content').classList.remove('d-none');
+      });
     });
   </script>
+
 </body>
+
 </html>
